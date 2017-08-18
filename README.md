@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # MyBucketlistService
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.7.
@@ -26,3 +27,7 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+=======
+# Bucket List API Frontend
+Frontend for Bucket List Application API
+>>>>>>> 037d3449a51b1c17fcbb6e64fe2d1e57ccdc6895
