@@ -1,0 +1,20 @@
+/*background-color:#6d84b4;*/
+
+.top{
+	height:45px;
+	color:#ffffff;
+	background-color: #3b5998;
+	
+}
+.top h2{
+	font-size: 22px;
+    line-height: 45px;
+    font-weight: normal;
+}
+
+.main{
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	/*background-color: #6d84b4;*/
+}
