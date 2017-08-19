@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BucketlistsComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+  		console.log(localStorage.getItem('currentuser'))
+  }
 
   ngOnInit() {
+  	console.log(localStorage.getItem('currentuser'));
   }
 
 }

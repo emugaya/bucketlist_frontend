@@ -1,0 +1,29 @@
+.login-header {
+	height: 40px;
+	background-color: #eee;
+	text-align: center;
+}
+
+.login-header p {
+	line-height: 40px;
+	font-size: normal;
+	color: black;
+}
+
+.login-form {
+	text-align: center;
+}
+
+input[type="text"] {
+    border: 2px #cccccc solid;
+    border-radius: 10px;
+}
+
+input[type="password"] {
+    border: 2px #cccccc solid;
+    border-radius: 10px;
+}
+button {
+	border-radius: 10px;
+	/*color: red;*/
+}

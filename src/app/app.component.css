@@ -4,6 +4,7 @@
 	height:45px;
 	color:#ffffff;
 	background-color: #3b5998;
+	/*position: fixed;*/
 	
 }
 .top h2{
@@ -16,5 +17,5 @@
 	width: 80%;
 	margin-left: auto;
 	margin-right: auto;
-	/*background-color: #6d84b4;*/
+	background-color: #eee;
 }
