@@ -13,13 +13,13 @@ export class AuthService {
   constructor(private http: Http) { 
   }
 
+  token = sessionStorage.getItem('token');
 // Headers to be used for post and  put
   postHeaders(){
   	  	let headers = new Headers;
-  	  	let token = sessionStorage.getItem('token')
-  		headers.append('Content-Type', 'application/json');
+  	  	headers.append('Content-Type', 'application/json');
     	headers.append('Accept', 'application/json');
-    	headers.append('Authorization', 'Basic '+btoa(token))
+    	headers.append('Authorization', 'Basic '+btoa(this.token))
     	let requestoptions = new RequestOptions({
             headers: headers
         });
@@ -30,9 +30,8 @@ export class AuthService {
 
   getHeaders(){
   	  	let headers = new Headers;
-  	  	let token = sessionStorage.getItem('token')
     	headers.append('Accept', 'application/json');
-    	headers.append('Authorization', 'Basic '+btoa(token))
+    	headers.append('Authorization', 'Basic '+btoa(this.token))
     	let requestoptions = new RequestOptions({
             headers: headers
         });
