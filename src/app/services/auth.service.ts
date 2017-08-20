@@ -57,7 +57,7 @@ export class AuthService {
 
   // This method handles user Registration
   postRegister(user) {
-  		return this.http.post(SERVER+'auth/register', user, this.authHeaders());
+  		return this.http.post(SERVER+'auth/register/', user, this.authHeaders());
 
   } 
 
