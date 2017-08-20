@@ -5,7 +5,8 @@ import { FormsModule }    from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 // Services
-import {AuthService} from './services/auth.service'
+import { AuthService} from './services/auth.service';
+import { BucketlistsService } from './services/bucketlists.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -43,7 +44,8 @@ import { AppRoutingModule }     from './app-routing/app-routing.module';
     HttpModule,
     AppRoutingModule
   	],
-  providers: [AuthService],
+  providers: [AuthService,
+              BucketlistsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
