@@ -9,36 +9,45 @@ import { SERVER } from '../server';
 
 @Injectable()
 export class AuthService {
+  token: any ="";
 
   constructor(private http: Http) { 
+    
   }
 
-  token = sessionStorage.getItem('token');
+  
 // Headers to be used for post and  put
   postHeaders(){
-  	  	let headers = new Headers;
-  	  	headers.append('Content-Type', 'application/json');
-    	headers.append('Accept', 'application/json');
-    	headers.append('Authorization', 'Basic '+btoa(this.token))
-    	let requestoptions = new RequestOptions({
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    let tokenized = localStorage.getItem("token");
+    console.log(tokenized);
+    headers.append('Authorization', 'Basic '+btoa(tokenized+":"+"unused"));
+    headers.append('Accept', 'application/json');
+    // headers.append('token','token');
+    let requestoptions = new RequestOptions({
             headers: headers
         });
-        return requestoptions;
+    console.log("In auth.service :" + requestoptions)
+    return requestoptions;
 
   }
   // Headers used for get and delete metthods
 
   getHeaders(){
-  	  	let headers = new Headers;
-    	headers.append('Accept', 'application/json');
-    	headers.append('Authorization', 'Basic '+btoa(this.token))
-    	let requestoptions = new RequestOptions({
+  	  let headers = new Headers;
+      headers.append('Accept', 'application/json');
+      console.log("before basic btooa: " +localStorage.getItem("token"));
+      headers.append('Authorization', 'Basic '+btoa(localStorage.getItem("token")+":"+"unused"));
+      let requestoptions = new RequestOptions({
             headers: headers
         });
 
+        console.log(requestoptions);
+
         return requestoptions;
   }
-  // Headers used for user registration and LongRunningScriptDetectedEvent
+  // Headers used for user registration and Longin
 
   authHeaders(){
   		let headers = new Headers;

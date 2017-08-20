@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
         	else {
         		localStorage.setItem('currentuser', this.user.username);
         		localStorage.setItem('token', this.token);
+            console.log("going to bucketlists")
         		this.router.navigate(['/bucketlists']);
         	}
 

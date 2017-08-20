@@ -20,7 +20,7 @@ const routes: Routes =[
 	{ path: 'bucketlists',  component: BucketlistsComponent},
 	{ path: 'items',  component: ItemsComponent},
 	{ path: 'bucketlists/edit',  component: EditBucketlistComponent},
-	{ path: 'bucketlists/add',  component: AddBucketlistComponent},
+	{ path: 'add-bucketlist',  component: AddBucketlistComponent},
 	{ path: 'items/add',  component: AddItemComponent},
 	{ path: 'items/edit',  component: EditItemComponent}
 ];

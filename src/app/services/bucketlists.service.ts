@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Headers, RequestOptions, Http, Response  } from '@angular/http';
 
 // Import Authentication service
 import { AuthService }from './auth.service';
@@ -11,11 +11,16 @@ import { SERVER } from '../server';
 export class BucketlistsService {
 
   constructor(private authService: AuthService,
-  			  private http: Http) { }
+  			  private http: Http) { 
+  	console.log("in bucket listservice constructor")
+  	console.log(localStorage.getItem('token'))
+  }
 
 // Method to retrieve all buckets
   getBuckets(){
-  	return this.http.get(SERVER+'bucketlists/',this.authService.getHeaders)
+  	
+  	console.log("in bucket list service");
+  	return this.http.get(SERVER+'bucketlists/', this.authService.getHeaders());
 
   }
 
@@ -25,7 +30,8 @@ export class BucketlistsService {
   }
 
 // Method to create buckets
-  postBucket(){
+  postBucket(bucket){
+  	return this.http.post(SERVER+'bucketlists/',bucket, this.authService.postHeaders());
 
   }
 
@@ -34,8 +40,9 @@ export class BucketlistsService {
 
   }
 
-// Methid to delete single bucket
-  deleteBucket(){
+// Method to delete single bucket
+  deleteBucket(id){
+  	return this.http.delete(SERVER+'bucketlists/'+id, this.authService.getHeaders());
 
   }
 
