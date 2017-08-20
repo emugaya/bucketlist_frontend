@@ -15,9 +15,34 @@ import 'rxjs/add/operator/map';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+	user ={"username" :"holderu",
+			"password" : "passwordu"}
+	register_res: any;
+	error_message = '';
+
+  constructor(  private authService: AuthService,
+				private router: Router) { }
 
   ngOnInit() {
+  }
+
+  onSubmit(f: NgForm): void {
+  	this.user.username = f.value.username;
+    this.user.password = f.value.password;
+    console.log(this.user)
+    this.authService.postRegister(this.user)
+    	.subscribe((res: Response)=>{
+    		this.register_res = res.json();
+    		console.log(this.register_res);
+    		if (this.register_res.message === "user created succesfully"){
+    			localStorage.setItem('reg_success','Registration was successful');
+    			this.router.navigate(['/login']);
+
+
+    		}else{
+    			this.error_message = this.register_res.error_message;
+    			}
+    	});
   }
 
 }
