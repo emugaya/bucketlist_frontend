@@ -36,7 +36,8 @@ export class BucketlistsService {
   }
 
 // Method to edit bucket 
-  editBucket(){
+  editBucket(id, name){
+  	return this.http.put(SERVER+'bucketlists/'+id, name, this.authService.postHeaders());
 
   }
 

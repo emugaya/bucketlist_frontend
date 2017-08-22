@@ -13,6 +13,7 @@ import { BucketlistsService } from '../services/bucketlists.service'
 })
 export class BucketlistsComponent implements OnInit {
 
+  placeholder:string = "E.g Travel";
   bucket_res: any;
   currentuser: string;
   buckets: any;
@@ -70,5 +71,11 @@ export class BucketlistsComponent implements OnInit {
       this.getBucketlists();
 
     });
+  }
+  editBucketName(id, name){
+    this.bucketlistsService.editBucket(id,name).subscribe((res:Response)=>{
+      console.log("Bucket edited succesfully");
+      this.getBucketlists();
+    })
   }
 }
