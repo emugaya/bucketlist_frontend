@@ -23,11 +23,13 @@ export class BucketlistsComponent implements OnInit {
   per_page: 0;
   add_bucket_res: any;
   bucket ={"name": "Bucket Name"}
+  edit_bucket_name: any;
+  bucket_id_to_edit: any;
   constructor(private authService: AuthService,
 			  private router: Router,
 			  private bucketlistsService: BucketlistsService
-			  ) { 
-    		
+			  ) {
+
   }
 
   ngOnInit() {
@@ -53,12 +55,16 @@ export class BucketlistsComponent implements OnInit {
     console.log(this.pages);
     console.log(this.total_buckets);
     console.log(this.bucket_res);
-  } 
-  
+  }
+
   addBucket(f: NgForm): void {
     this.bucket.name =f.value.name
+    console.log(f.value.name)
+    console.log("add bucket starts");
     this.bucketlistsService.postBucket(this.bucket).subscribe((res: Response)=>{
         this.add_bucket_res = res.json();
+        console.log("In add bucket")
+        console.log(this.add_bucket_res)
         console.log(this.add_bucket_res);
         this.getBucketlists();
     })
@@ -67,13 +73,25 @@ export class BucketlistsComponent implements OnInit {
 
   deleteBucket(id){
       this.bucketlistsService.deleteBucket(id).subscribe((res:Response)=>{
-      console.log("succesfully deleted item");
+      console.log("succesfly deleted item");
       this.getBucketlists();
 
     });
   }
-  editBucketName(id, name){
-    this.bucketlistsService.editBucket(id,name).subscribe((res:Response)=>{
+  setBucketNameEditVariables(id, name){
+    console.log("start setting variables")
+    this.edit_bucket_name = name
+    console.log(this.edit_bucket_name)
+    this.bucket_id_to_edit = id
+    console.log(this.bucket_id_to_edit)
+    console.log("end setting variables")
+  }
+  editBucketName(editform: NgForm): void{
+    console.log(this.edit_bucket_name)
+    this.edit_bucket_name = editform.value.name;
+    let name ={ "name": this.edit_bucket_name}
+    console.log(this.edit_bucket_name)
+    this.bucketlistsService.editBucket(this.bucket_id_to_edit, name).subscribe((res:Response)=>{
       console.log("Bucket edited succesfully");
       this.getBucketlists();
     })
