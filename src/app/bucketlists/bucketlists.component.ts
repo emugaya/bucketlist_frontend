@@ -96,4 +96,12 @@ export class BucketlistsComponent implements OnInit {
       this.getBucketlists();
     })
   }
+
+  viewBucket(bucketlist_id, bucketlist_name){
+    console.log("redirecting to bucketlists items");
+    localStorage.setItem("bucketlist_id", bucketlist_id);
+    localStorage.setItem("bucketlist_name",bucketlist_name);
+    console.log(localStorage.getItem("bucketlist_id"));
+    this.router.navigate(['/items']);
+  }
 }

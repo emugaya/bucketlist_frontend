@@ -9,37 +9,35 @@ import { SERVER } from '../server';
 
 @Injectable()
 export class AuthService {
-  token: any ="";
+  token: any = '';
 
-  constructor(private http: Http) { 
-    
+  constructor(private http: Http) {
+
   }
 
-  
+
 // Headers to be used for post and  put
-  postHeaders(){
-    let headers = new Headers();
+  postHeaders() {
+    const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    let tokenized = localStorage.getItem("token");
-    console.log(tokenized);
-    headers.append('Authorization', 'Basic '+btoa(tokenized+":"+"unused"));
+    const tokenized = localStorage.getItem('token');
+    headers.append('Authorization', 'Basic ' + btoa(tokenized + ':' + 'unused'));
     headers.append('Accept', 'application/json');
-    // headers.append('token','token');
-    let requestoptions = new RequestOptions({
+    const requestoptions = new RequestOptions({
             headers: headers
         });
-    console.log("In auth.service :" + requestoptions)
+    console.log('In auth.service :' + requestoptions);
     return requestoptions;
 
   }
   // Headers used for get and delete metthods
 
-  getHeaders(){
-  	  let headers = new Headers;
-      headers.append('Accept', 'application/json');
-      console.log("before basic btooa: " +localStorage.getItem("token"));
-      headers.append('Authorization', 'Basic '+btoa(localStorage.getItem("token")+":"+"unused"));
-      let requestoptions = new RequestOptions({
+  getHeaders() {
+    const headers = new Headers;
+    headers.append('Accept', 'application/json');
+    console.log('before basic btooa: ' + localStorage.getItem('token'));
+    headers.append('Authorization', 'Basic ' + btoa(localStorage.getItem('token') + ':' + 'unused'));
+    const requestoptions = new RequestOptions({
             headers: headers
         });
 
@@ -49,25 +47,25 @@ export class AuthService {
   }
   // Headers used for user registration and Longin
 
-  authHeaders(){
-  		let headers = new Headers;
-  		headers.append('Content-Type', 'application/json');
-    	headers.append('Accept', 'application/json');
-    	let requestoptions = new RequestOptions({
+  authHeaders() {
+    const headers = new Headers;
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    const requestoptions = new RequestOptions({
             headers: headers
         });
         return requestoptions;
   }
 
   // This method handles user Login
-  postLogin(user){
-    	return this.http.post(SERVER+'auth/login',user, this.authHeaders());
-	}
+  postLogin(user) {
+    return this.http.post(SERVER + 'auth/login/', user, this.authHeaders());
+  }
 
   // This method handles user Registration
   postRegister(user) {
-  		return this.http.post(SERVER+'auth/register/', user, this.authHeaders());
+    return this.http.post(SERVER + 'auth/register/', user, this.authHeaders());
 
-  } 
+  }
 
 }
