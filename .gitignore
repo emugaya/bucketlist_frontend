@@ -40,6 +40,7 @@ yarn-error.log
 
 #VSCOde
 .vscode/
+.vscode/settings.json
 
 # System Files
 .DS_Store
