@@ -106,7 +106,7 @@
 
                 <form class="form-inline" #editform="ngForm" (ngSubmit)="editBucketName(editform)" (click)="reloadPage()" novalidate>
                     <label class="sr-only" for="inlineFormInputName3">Bucket Name</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputName3" name="name" ngModel required #name="ngModel" value="John">
+                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputName3" name="name" ngModel={{edit_bucket_name}} required #name="ngModel">
 
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

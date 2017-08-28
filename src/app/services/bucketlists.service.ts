@@ -54,7 +54,7 @@ export class BucketlistsService {
 
 // Method to edit bucket list items
   editItem(bucket_id, item_id, item) {
-    return this.http.put(SERVER + 'bucketlists/' + bucket_id + 'items/' + item_id, item, this.authService.postHeaders());
+    return this.http.put(SERVER + 'bucketlists/' + bucket_id + '/items/' + item_id, item, this.authService.postHeaders());
   }
 
 // Method to delete bucket list item
