@@ -1,66 +1,64 @@
 <div class="row" style="background-color: #dcd2d2 ">
-	<div class="col-md-10 search-box">
-	<form class="form-inline ">
-		<div class="col-md-10 form-group" id="search-input">
-			<input class="form-control" type="text"  name="username" ngModel required #username="ngModel" placeholder="Enter a single term or word to search">
-		</div>
-		<div class="col-md-2 form-group">
-			<button class="btn btn-primary form-control">Search Buckets</button>
-		</div>
-	</form>
-	</div>
-	<div class ="col-md-2 add-bucket">
-		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addBucketModal">Add Bucket</button>
-	</div>
+    <div class="col-md-10 search-box">
+        <form class="form-inline ">
+            <div class="col-md-10 form-group" id="search-input">
+                <input class="form-control" type="text" name="username" ngModel required #username="ngModel" placeholder="Enter a single term or word to search">
+            </div>
+            <div class="col-md-2 form-group">
+                <button class="btn btn-primary form-control">Search Buckets</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2 add-bucket">
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addBucketModal">Add Bucket</button>
+    </div>
 </div>
 <div class="row container-fluid" style="text-align: center">
-<p style="text-align: center" >Hi {{currentuser}} , your buckets are listed below. </p>
+    <p style="text-align: center">Hi {{currentuser}} , your buckets are listed below. </p>
     <!-- <button type="button" (click)="getBucketlists()"> Make Request</button> -->
 </div>
 <div>
-<!-- <ol *ngIf="buckets.length > 0; else loading">
+    <!-- <ol *ngIf="buckets.length > 0; else loading">
 
 </ol> -->
 </div>
 
-<div class ="row">
-<table class="table table-sm table-striped">
-  <thead>
-    <tr>
-      <th style="text-align: center">Bucket Name</th>
-      <th colspan="4" style="text-align: center">Actions</th>
-      <!-- <th>Username</th> -->
-    </tr>
-  </thead>
-  <tbody >
-    <tr *ngFor ="let bucket of buckets">
-      <!-- <td style="text-align: left">{{bucket.id}}</td> -->
-      <td style="text-align: left">{{bucket.name}}</td>
-      <td style="text-align: center"><button style="background-color: #c8ffe1" type="button" class="btn btn-default">View Items</button></td>
-      <td style="text-align: center"><button style="background-color: #63b363" type="button" class="btn btn-default">Add Items</button></td>
-      <td style="text-align: center"><button style="background-color: #b8c3d8" type="button"
-				class="btn btn-default" data-toggle="modal"
-				data-target="#editBucketModal" (click)="setBucketNameEditVariables(bucket.id,bucket.name)">Edit</button></td>
-      <td style="text-align: center"><button style="background-color: #ea5275" type="button" class="btn btn-default"
-      (click)="deleteBucket(bucket.id)"> Delete </button></td>
-    </tr>
-  </tbody>
-</table>
+<div class="row">
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th style="text-align: center">Bucket Name</th>
+                <th colspan="4" style="text-align: center">Actions</th>
+                <!-- <th>Username</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let bucket of buckets">
+                <!-- <td style="text-align: left">{{bucket.id}}</td> -->
+                <td style="text-align: left">{{bucket.name}}</td>
+                <td style="text-align: center"><button style="background-color: #63b363" type="button" class="btn btn-default" (click)="viewBucket(bucket.id, bucket.name)">View Items</button></td>
+                <td style="text-align: center"><button style="background-color: #b8c3d8" type="button" class="btn btn-default" data-toggle="modal" data-target="#editBucketModal" (click)="setBucketNameEditVariables(bucket.id,bucket.name)">Edit</button></td>
+                <td style="text-align: center"><button style="background-color: #ea5275" type="button" class="btn btn-default" (click)="deleteBucket(bucket.id)"> Delete </button></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <div>
-	<nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-end">
-    <li class="page-item disabled">
-      <a class="page-link" href="#" tabindex="-1">Previous</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
+
+    <!-- Pagination Section -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 
 
@@ -68,58 +66,56 @@
 
 <!-- Modal Form to Add buckets-->
 <div class="modal fade" id="addBucketModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Add Bucket</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Bucket</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
+            </div>
+            <div class="modal-body">
 
-        <form class="form-inline" #f="ngForm" (ngSubmit)="addBucket(f)" (click)="reloadPage()" novalidate>
-  			<label class="sr-only" for="inlineFormInputName2">Bucket Name</label>
-  			<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputName2" name="name" ngModel required #name="ngModel" placeholder="E.g Travel">
+                <form class="form-inline" #f="ngForm" (ngSubmit)="addBucket(f)" novalidate>
+                    <label class="sr-only" for="inlineFormInputName2">Bucket Name</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputName2" name="name" ngModel required #name="ngModel" placeholder="E.g Travel">
 
-  			<button type="submit" class="btn btn-primary" >Submit</button>
-		</form>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"
-        (click)="reloadPage()" >Close</button>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-      </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Edit Bucket Modal -->
 <div class="modal fade" id="editBucketModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle1" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle1">Edit Bucket</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle1">Edit Bucket</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
+            </div>
+            <div class="modal-body">
 
-        <form class="form-inline" #editform="ngForm" (ngSubmit)="editBucketName(editform)" (click)="reloadPage()" novalidate>
-  			<label class="sr-only" for="inlineFormInputName3">Bucket Name</label>
-  			<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputName3" name="name" ngModel required #name="ngModel"  value="John">
+                <form class="form-inline" #editform="ngForm" (ngSubmit)="editBucketName(editform)" (click)="reloadPage()" novalidate>
+                    <label class="sr-only" for="inlineFormInputName3">Bucket Name</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputName3" name="name" ngModel={{edit_bucket_name}} required #name="ngModel">
 
-  			<button type="submit" class="btn btn-primary">Submit</button>
-		</form>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"
-        (click)="reloadPage()" >Close</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="reloadPage()">Close</button>
 
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

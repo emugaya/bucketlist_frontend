@@ -1,19 +1,19 @@
 <div class="login-header">
-	<p>Please Login with your username and password!</p>
+    <p>Please Login with your username and password!</p>
 </div>
 
 <div class="login-form">
-<form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-	<p>
-		<label>Username:</label>
-    	<input type="text" name="username" ngModel required #username="ngModel" placeholder="ex. emugaya">
-    </p>
-    <p>
-    	<label >Password:</label>
-    	<input type="password" name="password" ngModel required #password="ngModel" placeholder="password">
-    </p>
-    <button>Login</button>
-		
-</form>
-<div class="error" *ngIf="error_message"> {{error_message}}. Please try again</div>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+        <p>
+            <label>Username:</label>
+            <input type="text" name="username" ngModel required #username="ngModel" placeholder="ex. emugaya">
+        </p>
+        <p>
+            <label>Password:</label>
+            <input type="password" name="password" ngModel required #password="ngModel" placeholder="password">
+        </p>
+        <button>Login</button>
+
+    </form>
+    <div class="error" *ngIf="message"> {{message}}. Please try again</div>
 </div>
