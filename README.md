@@ -6,17 +6,21 @@ This Project was genearated by [Angular CLI](https://cli.angular.io/).
 
 ## Installation:
 1. Install `Node.js` which comes with `npm` from the [Link](https://nodejs.org/en/download/) for you Operating Systems.
-2. Clone the this repo
+2. Install [Angular CLI](https://cli.angular.io/)
+```
+npm install -g @angular/cli
+```
+3. Clone the this repo
 ```
 git clone https://github.com/emugaya/BucketlistsAPI.git
 ```
-3. This Creates a folder named ```bucketlist_frontend``` . Change directory to it.
+4. This Creates a folder named ```bucketlist_frontend``` . Change directory to it.
 ```
 cd bucketlist_frontend
 ```
-4. Install Angular modules `npm install`
+5. Install Angular modules `npm install`
 
-5. Run the development server using `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+6. Run the development server using `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
