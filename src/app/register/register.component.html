@@ -1,19 +1,23 @@
 <div class="register-header">
-	<p>Please Register Here to use this service</p>
+    <p>Please Register Here to use this service</p>
 </div>
 
 <div class="register-form">
-<form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-	<p>
-		<label>Username:</label>
-    	<input type="text" name="username" ngModel required #username="ngModel" placeholder="ex. emugaya">
-    </p>
-    <p>
-    	<label >Password:</label>
-    	<input type="password" name="password" ngModel required #password="ngModel" placeholder="password">
-    </p>
-    <button>Create Account</button>
-		
-</form>
-<div class="error" *ngIf="error_message"> {{error_message}}. Please try again</div>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+        <p>
+            <label>Username:</label>
+            <input type="text" name="username" ngModel required #username="ngModel" placeholder="ex. emugaya">
+        </p>
+        <p>
+            <label>Password:</label>
+            <input type="password" name="password" ngModel required #password="ngModel" placeholder="password">
+        </p>
+        <button>Create Account</button>
+
+    </form>
+    <div class="alert alert-danger" *ngIf="message">
+        <strong>{{message}}. Please try again.</strong>
+    </div>
+    <p></p>
+    <p>Click <a href="/login">Here </a>to login if you already have an account</p>
 </div>

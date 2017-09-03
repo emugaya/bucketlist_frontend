@@ -1,17 +1,17 @@
 .login-header {
-	height: 40px;
-	background-color: #eee;
-	text-align: center;
+    height: 40px;
+    background-color: #eee;
+    text-align: center;
 }
 
 .login-header p {
-	line-height: 40px;
-	font-size: normal;
-	color: black;
+    line-height: 40px;
+    font-size: normal;
+    color: black;
 }
 
 .login-form {
-	text-align: center;
+    text-align: center;
 }
 
 input[type="text"] {
@@ -23,11 +23,10 @@ input[type="password"] {
     border: 2px #cccccc solid;
     border-radius: 10px;
 }
-button {
-	border-radius: 10px;
-	/*color: red;*/
-}
 
-.error{
-	color: red;
+.loginbutton {
+    height: 40px;
+    padding: 20px 20px 20px 20px;
+    border-top: 10px;
+    text-align: center;
 }

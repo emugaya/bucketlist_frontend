@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, RequestOptions, Http, Response  } from '@angular/http';
+import { Headers, RequestOptions, Http, Response, URLSearchParams } from '@angular/http';
 
 // Import Authentication service
 import { AuthService } from './auth.service';
@@ -16,9 +16,27 @@ export class BucketlistsService {
   }
 
 // Method to retrieve all buckets
-  getBuckets() {
+  getBuckets(page?, per_page?, search?) {
     console.log('in bucket list service');
-    return this.http.get(SERVER + 'bucketlists/', this.authService.getHeaders());
+    console.log(page);
+    console.log(per_page);
+    console.log(search);
+    // search = 't';
+    if (search) {
+      page = 1;
+    }
+    // page = 2;
+    const params = new URLSearchParams();
+    params.set('page', page);
+    params.set('search', search);
+    params.set('per_page', per_page);
+    console.log(params);
+    let requestOptions = new RequestOptions(this.authService.getHeaders(), );
+    requestOptions.search = params;
+    console.log(requestOptions);
+    // requestOptions.append = this.authService.getHeaders();
+
+    return this.http.get(SERVER + 'bucketlists/', requestOptions, );
 
   }
 

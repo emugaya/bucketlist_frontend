@@ -12,8 +12,12 @@
             <label>Password:</label>
             <input type="password" name="password" ngModel required #password="ngModel" placeholder="password">
         </p>
-        <button>Login</button>
-
+        <div>
+            <button>Login </button>
+        </div>
     </form>
-    <div class="error" *ngIf="message"> {{message}}. Please try again</div>
+    <div class="alert alert-danger" *ngIf="message">
+        <strong>{{message}}. Please try again.</strong>
+    </div>
+    <p>If you don't have an account click <a href="/register">Here </a>to register.</p>
 </div>

@@ -1,6 +1,7 @@
+import { any } from 'codelyzer/util/function';
 import { Injectable } from '@angular/core';
 import { Headers, RequestOptions, Http, Response  } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import {Observable} from 'rxjs/Rx';
 
 import 'rxjs/add/operator/map';
 
@@ -58,7 +59,7 @@ export class AuthService {
   }
 
   // This method handles user Login
-  postLogin(user) {
+  postLogin(user): Observable<any> {
     return this.http.post(SERVER + 'auth/login/', user, this.authHeaders());
   }
 
