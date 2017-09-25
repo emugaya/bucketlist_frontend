@@ -1,4 +1,7 @@
+import { BucketlistsComponent } from './bucketlists/bucketlists.component';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { BucketlistsService } from './services/bucketlists.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Bucketlist Massappe';
+  title = 'bucketlist';
+
+  constructor(private router: Router) { }
+
+  ngOnInit() {
+  }
+  // Redirect to Login page
+  goToLogin(): void {
+    this.router.navigate(['/login']);
+  }
+
+  // Redirectto Registration page
+  goToRegister(): void {
+    this.router.navigate(['/register']);
+  }
 }

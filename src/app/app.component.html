@@ -1,17 +1,39 @@
 <!--The content below is only a placeholder and can be replaced.-->
+<div class="topcolor">
+</div>
 <div class="top">
-  <div style="text-align:center">
-    <h2 >
-      {{title}}
-    </h2>
-  </div>
+    <div class="row top-container">
+        <div class="col-md-2 logo">
+            <div class="icon">
+                <img width="45" height="45" src="./assets/list.svg" alt="">
+            </div>
+            <div class="title">
+                <h1>{{title}}</h1>
+            </div>
+        </div>
+        <div class="col-md-8 search">
+            <!-- <form class="form-inline " #sform="ngForm" (ngSubmit)="searchBucketLists(sform)">
+                <div class="col-md-10 form-group" id="search-input">
+                    <input class="form-control" id="search-input1" type="text" name="name" ngModel required #name="ngModel" placeholder="Enter a single term or word to search">
+                </div>
+                <div class="col-md-2 form-group" id="search-label">
+                    <button class="btn btn-primary form-control">Search</button>
+                </div>
+            </form> -->
+
+        </div>
+        <div class="col-md-2 reg-login">
+            <div id="login-button">
+                <button class="btn btn-primary" (click)="goToLogin()">Login</button></div>
+            <div id="register-button">
+                <button class="btn btn-primary" (click)="goToRegister()">Register</button></div>
+        </div>
+    </div>
+</div>
+<div class="horizontal-line">
 
 </div>
 
-<div class="main" >
- <router-outlet></router-outlet>
+<div class="main">
+    <router-outlet></router-outlet>
 </div>
-
-
-
-

@@ -6,14 +6,23 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 import { SERVER } from '../server';
+import { Router } from '@angular/router';
 
 
 @Injectable()
 export class AuthService {
   token: any = '';
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private router: Router) {
 
+  }
+  isLoggedIn = false;
+
+  // store the URL so we can redirect after logging in
+  redirectUrl: string;
+
+  logout(): void {
+    this.isLoggedIn = false;
   }
 
 
@@ -27,7 +36,6 @@ export class AuthService {
     const requestoptions = new RequestOptions({
             headers: headers
         });
-    console.log('In auth.service :' + requestoptions);
     return requestoptions;
 
   }
@@ -36,14 +44,10 @@ export class AuthService {
   getHeaders() {
     const headers = new Headers;
     headers.append('Accept', 'application/json');
-    console.log('before basic btooa: ' + localStorage.getItem('token'));
     headers.append('Authorization', 'Basic ' + btoa(localStorage.getItem('token') + ':' + 'unused'));
     const requestoptions = new RequestOptions({
             headers: headers
         });
-
-        console.log(requestoptions);
-
         return requestoptions;
   }
   // Headers used for user registration and Longin
@@ -67,6 +71,9 @@ export class AuthService {
   postRegister(user) {
     return this.http.post(SERVER + 'auth/register/', user, this.authHeaders());
 
+  }
+  checkTimeOut() {
+    this.router.navigate(['/login']);
   }
 
 }

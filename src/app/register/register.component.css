@@ -1,33 +1,58 @@
 .register-header {
-	height: 40px;
-	background-color: #eee;
-	text-align: center;
+    height: 40px;
+    background-color: #eee;
+    text-align: center;
+}
+
+.registration_area {
+    width: 80%;
+    margin: auto;
 }
 
 .register-header p {
-	line-height: 40px;
-	font-size: normal;
-	color: black;
+    color: #00796B;
+    font-size: 30px;
+    line-height: 40px;
+    font-size: normal;
+    /* color: black; */
 }
 
 .register-form {
-	text-align: center;
+    margin-top: 20px;
+    height: 300px;
+    padding: 30px;
+    text-align: center;
+    background-color: #B2DFDB;
+}
+
+.register-form label {
+    font-size: 20px;
+    ;
 }
 
 input[type="text"] {
-    border: 2px #cccccc solid;
-    border-radius: 10px;
+    border: 0px #cccccc solid;
+    width: 300px;
+    height: 40px;
 }
 
 input[type="password"] {
-    border: 2px #cccccc solid;
-    border-radius: 10px;
-}
-button {
-	border-radius: 10px;
-	/*color: red;*/
+    border: 0px #cccccc solid;
+    width: 300px;
+    height: 40px;
 }
 
-.error{
-	color: red;
+button {
+    background-color: #607D8B;
+    align-self: center;
+    height: 45px;
+    font-size: 20px;
+}
+
+.error {
+    color: red;
+}
+
+#login_msg {
+    font-size: 20px;
 }

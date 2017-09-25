@@ -46,7 +46,11 @@ export class RegisterComponent implements OnInit {
     }, (error) => {
       console.log('in catch');
       if (error.status === 400 ) {
-        this.message = 'Username and password must be supplied';
+        console.log(error._body);
+        JSON.parse(error._body);
+        const error_message: any = JSON.parse(error._body);
+        console.log(error_message.message);
+        this.message = error_message.message;
         console.log(this.message);
         }
     });
