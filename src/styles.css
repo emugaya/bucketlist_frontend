@@ -1,9 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
-html{
-	background-color: #eee;
+html {
+    background-color: whitesmoke;
+    font-family: "Gotham Narrow SSm", "Helvetica Neue", Helvetica, sans-serif;
 }
 
 body {
-	background-color: transparent !important;
+    background-color: transparent !important;
+    font-family: "Gotham Narrow SSm", "Helvetica Neue", Helvetica, sans-serif;
 }

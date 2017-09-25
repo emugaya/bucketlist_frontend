@@ -3,9 +3,10 @@ import { NgForm} from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { AuthService} from '../services/auth.service';
 import { Http, Response } from '@angular/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BucketlistsService } from '../services/bucketlists.service';
-
+import { Location } from '@angular/common';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-items',
@@ -24,78 +25,86 @@ export class ItemsComponent implements OnInit {
   edit_item_detail: any = { name: 'new Item Name', done: false };
   edit_item_id: any;
   edit_item_res: any;
-
+  message = '';
   constructor(
     private bucketlistsService: BucketlistsService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
-    console.log('iniside items component');
-    this.bucketlist_id = localStorage.getItem('bucketlist_id');
-    this.bucketlist_name = localStorage.getItem('bucketlist_name');
-    console.log(this.bucketlist_id);
     this.currentuser = localStorage.getItem('currentuser');
-    this.getBucketListItems();
+    this.route.params
+    .switchMap((params: Params) => this.bucketlistsService.getSingleBucket(+params['id']))
+    .subscribe((res: Response) => {
+      const returned_data = res.json();
+      this.bucketlist_id = returned_data.id;
+      this.bucketlist_name = returned_data.name;
+      localStorage.setItem('bucketlist_id', this.bucketlist_id);
+      localStorage.setItem('bucketlist_name', this.bucketlist_name);
+      if (returned_data.items > 0) {
+        this.bucketlist_items = returned_data.items;
+      } else {
+        this.bucketlist_id = 0;
+      }
+      this.bucketlist_items = returned_data.items;
+    }, (error) => {
+      const error_message: any = JSON.parse(error._body);
+      this.message = error_message.message;
+      if (error.status === 401 ) {
+        this.authService.checkTimeOut();
+        }
+    });
   }
-  // Method to retrieve buckets in a bucketlist
-  getBucketListItems() {
-    console.log('before');
-    console.log(this.bucketlist_id);
+  // Method to retrieve items in a bucketlist
+  getBucketListItems(id) {
+    this.bucketlist_id = id;
     this.bucketlistsService
       .getSingleBucket(this.bucketlist_id)
       .subscribe((res: Response) => {
-        console.log('Inside getBucketListItems');
-        let returned_data = res.json();
-        console.log(returned_data);
-        console.log(returned_data.items);
+        const returned_data = res.json();
         if (returned_data.items > 0) {
           this.bucketlist_items = returned_data.items;
-          console.log('in undefined');
         } else {
           this.bucketlist_id = 0;
-          console.log('in else');
         }
         this.bucketlist_items = returned_data.items;
-        console.log('returned bucket list items below');
-        console.log(this.bucketlist_items);
+      }, (error) => {
+        const error_message: any = JSON.parse(error._body);
+        this.message = error_message.message;
+        if (error.status === 401 ) {
+          this.authService.checkTimeOut();
+          }
       });
   }
 
   // Method to create items in a particular bucketlist
   addBucketListItem(f: NgForm) {
-    console.log('start add bucket item');
     this.add_bucketlist_item.name = f.value.name;
-    console.log(f.value.name);
     this.bucketlist_id = localStorage.getItem('bucketlist_id');
-    console.log('starting add item');
-    console.log(this.add_bucketlist_item);
-
     this.bucketlistsService
       .postBucketItem(this.bucketlist_id, this.add_bucketlist_item)
       .subscribe((res: Response) => {
         this.add_bucketlist_item_res = res.json();
-        console.log('inside add item to bucket');
-        // console.log(this.add_bucketlist_item_res);
-        console.log('done adding items');
-        this.getBucketListItems();
+        this.getBucketListItems(this.bucketlist_id);
+      }, (error) => {
+        if (error.status === 401 ) {
+          this.authService.checkTimeOut();
+          }
       });
   }
+
   // Method to Set Variables for editing an item in the bucket list
   setVariablesForEditBucketItem(id, name, done) {
-    console.log('setting variables');
     this.edit_item_id = id;
-    console.log(this.edit_item_id);
     this.edit_item_detail.name = name;
     this.edit_item_detail.done = done;
-    console.log(this.edit_item_detail);
-    console.log('done setting variables');
   }
   // Method to Edit buckelist item
   editBucketlistItem(editform: NgForm) {
-    let verify: boolean = confirm(`Are you sure you want to edit this item?`);
+    const verify: boolean = confirm(`Are you sure you want to edit this item?`);
     if (verify === true) {
-      console.log('start edit bucket list');
       this.bucketlist_id = localStorage.getItem('bucketlist_id');
       this.edit_item_detail.name = editform.value.name;
       this.edit_item_detail.done = editform.value.done;
@@ -103,26 +112,32 @@ export class ItemsComponent implements OnInit {
         .editItem(this.bucketlist_id, this.edit_item_id, this.edit_item_detail)
         .subscribe((res: Response) => {
           this.edit_item_res = res.json();
-          console.log('after item edit');
-          console.log(this.edit_item_res);
-          this.getBucketListItems();
+          this.getBucketListItems(this.bucketlist_id);
+        }, (error) => {
+          if (error.status === 401 ) {
+            this.authService.checkTimeOut();
+            }
         });
     }
   }
 
   deleteBucketItem(item_id) {
-    let verify: boolean = confirm(`Are you sure you want to delete this item?`);
+    const verify: boolean = confirm(`Are you sure you want to delete this item?`);
     if (verify === true) {
-      console.log('before delete');
       this.bucketlist_id = localStorage.getItem('bucketlist_id');
       this.bucketlistsService
         .deleteBucketItem(this.bucketlist_id, item_id)
         .subscribe((res: Response) => {
-          console.log('inside delete');
           this.delete_item_res = res.json();
-          console.log(this.delete_item_res);
-          this.getBucketListItems();
+          this.getBucketListItems(this.bucketlist_id);
+        }, (error) => {
+          if (error.status === 401 ) {
+            this.authService.checkTimeOut();
+            }
         });
     }
+  }
+  backToBuckets(): void{
+    this.router.navigate(['/bucketlists']);
   }
 }
