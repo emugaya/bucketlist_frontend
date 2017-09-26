@@ -11,17 +11,10 @@ import { SERVER } from '../server';
 export class BucketlistsService {
 
   constructor(private authService: AuthService, private http: Http) {
-    console.log('in bucket listservice constructor');
-    console.log(localStorage.getItem('token'));
   }
 
 // Method to retrieve all buckets
   getBuckets(page?, per_page?, search?) {
-    console.log('in bucket list service');
-    console.log(page);
-    console.log(per_page);
-    console.log(search);
-    // search = 't';
     if (search) {
       page = 1;
     }
@@ -30,12 +23,8 @@ export class BucketlistsService {
     params.set('page', page);
     params.set('search', search);
     params.set('per_page', per_page);
-    console.log(params);
-    let requestOptions = new RequestOptions(this.authService.getHeaders(), );
+    const requestOptions = new RequestOptions(this.authService.getHeaders(), );
     requestOptions.search = params;
-    console.log(requestOptions);
-    // requestOptions.append = this.authService.getHeaders();
-
     return this.http.get(SERVER + 'bucketlists/', requestOptions, );
 
   }
@@ -49,25 +38,21 @@ export class BucketlistsService {
 // Method to create buckets
   postBucket(bucket) {
     return this.http.post(SERVER + 'bucketlists/', bucket, this.authService.postHeaders());
-
   }
 
 // Method to edit bucket
   editBucket(id, name) {
     return this.http.put(SERVER + 'bucketlists/' + id, name, this.authService.postHeaders());
-
   }
 
 // Method to delete single bucket
   deleteBucket(bucket_id) {
     return this.http.delete(SERVER + 'bucketlists/' + bucket_id, this.authService.getHeaders());
-
   }
 
 // Method to create items in bucketlist
   postBucketItem(bucket_id, item) {
     return this.http.post(SERVER + 'bucketlists/' + bucket_id + '/items/', item, this.authService.postHeaders());
-
   }
 
 // Method to edit bucket list items
@@ -78,7 +63,5 @@ export class BucketlistsService {
 // Method to delete bucket list item
   deleteBucketItem(bucket_id, item_id) {
     return this.http.delete(SERVER + 'bucketlists/' + bucket_id + '/items/' + item_id, this.authService.getHeaders());
-
   }
-
 }

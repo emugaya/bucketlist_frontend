@@ -1,95 +1,100 @@
-<div class="row container-fluid" style="text-align: center">
-    <!-- Display Communication to User -->
-    <p *ngIf="bucketlist_items.length > 0" style="text-align: center">Hi {{currentuser}} , {{bucketlist_name}} items are listed below. </p>
-    <p *ngIf="bucketlist_items == 0" style="text-align: center">Hi {{currentuser}} , you don't have any buckets. Please add Some</p>
-    <!-- Add Bucket Item Button -->
-    <div class="row container-fluid" style="text-align: center">
-        <div class="col-md-2 add-bucket">
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addBucketItem">Add Item</button>
+<div class="b_row">
+    <div class="row greet_add_item">
+        <div class="col-md-10 greeting">
+            <!-- Display Communication to User -->
+            <p *ngIf="bucketlist_items.length > 0">Hi {{currentuser}} , {{bucketlist_name}} items are listed below. </p>
+            <p *ngIf="bucketlist_items == 0">Hi {{currentuser}} , you don't have any items in {{bucketlist_name}}. Please create some.</p>
+            <!-- Add Bucket Item Button -->
+        </div>
+        <div class="row col-md-2 buttons">
+            <div class="col-md-6 add_item">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addBucketItem">Add Item</button>
+            </div>
+            <div class="col-md-6 back-button">
+                <button type="button" class="btn btn-default" (click)="backToBuckets()">Back</button>
+            </div>
         </div>
     </div>
 
-</div>
+    <div *ngIf="bucketlist_items.length > 0" class="row">
+        <table class="table table-sm table-striped" style="width:60%">
+            <thead>
+                <tr class="table-headers">
+                    <th style="text-align: left"> Item Name</th>
+                    <th style="text-align: left"> Status</th>
+                    <th style="text-align: center">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-content">
+                <tr *ngFor="let item of bucketlist_items" class="table-actions">
+                    <td style="text-align: left"><a class="item-name">{{item.name}}</a></td>
+                    <td style="text-align: left"><a class="item-name">{{item.done}}</a></td>
+                    <td style="text-align: center"><button style="background-color: #989898; border: 0; color: white;" type="button" class="btn btn-default" data-toggle="modal" data-target="#editBucketItem" (click)="setVariablesForEditBucketItem(item.id, item.name, item.done)"><i class="glyphicon glyphicon-pencil"></i></button>
+                        <button style="background-color: #ea5275; border: 0; color: white;" type="button" class="btn btn-default" (click)="deleteBucketItem(item.id)"><i class="glyphicon glyphicon-trash"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-<div class="row">
-    <table class="table table-sm table-striped">
-        <thead>
-            <tr>
-                <th style="text-align: left"> Item Name</th>
-                <th style="text-align: left"> Status</th>
-                <th colspan="2" style="text-align: center">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of bucketlist_items">
-                <!-- <td style="text-align: left">{{bucket.id}}</td> -->
-                <td style="text-align: left">{{item.name}}</td>
-                <td style="text-align: left">{{item.done}}</td>
-                <td style="text-align: center"><button style="background-color: #b8c3d8" type="button" class="btn btn-default" data-toggle="modal" data-target="#editBucketItem" (click)="setVariablesForEditBucketItem(item.id, item.name, item.done)">Edit</button></td>
-                <td style="text-align: center"><button style="background-color: #ea5275" type="button" class="btn btn-default" (click)="deleteBucketItem(item.id)"> Delete </button></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<!-- Modal Form to Add Item-->
-<div class="modal fade" id="addBucketItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle1">Add Item</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <!-- Modal Form to Add Item-->
+    <div class="modal fade" id="addBucketItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle1">Add Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-            </div>
-            <div class="modal-body">
+                </div>
+                <div class="modal-body">
 
-                <form #f="ngForm" (ngSubmit)="addBucketListItem(f)" novalidate>
-                    <label class="sr-only" for="inlineFormInputName2">Bucket Name</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputName2" name="name" ngModel required #name="ngModel" placeholder="E.g Travel">
+                    <form #f="ngForm" (ngSubmit)="addBucketListItem(f)" novalidate>
+                        <label class="sr-only" for="inlineFormInputName2">Bucket Name</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputName2" name="name" ngModel required #name="ngModel" placeholder="E.g Travel">
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Modal Form to Edit Item-->
-<div class="modal fade" id="editBucketItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle1">Edit Item</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <!-- Modal Form to Edit Item-->
+    <div class="modal fade" id="editBucketItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle1">Edit Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-            </div>
-            <div class="modal-body">
-                <form #editform="ngForm" (ngSubmit)="editBucketlistItem(editform)" novalidate>
-                    <div class="form-group">
-                        <label for="recipient-name" class="form-control-label">Item Name:</label>
-                        <input type="text" class="form-control" id="recipient-name3" name="name" ngModel={{edit_item_detail.name}} required #name="ngModel" placeholder="E.g Play Ug Cranes">
-                    </div>
-                    <h5 class="modal-title" id="exampleModalLongTitle1">Have you Completed this Item?</h5>
-                    <div class="form-group">
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
+                </div>
+                <div class="modal-body">
+                    <form #editform="ngForm" (ngSubmit)="editBucketlistItem(editform)" novalidate>
+                        <div class="form-group">
+                            <label for="recipient-name" class="form-control-label">Item Name:</label>
+                            <input type="text" class="form-control" id="recipient-name3" name="name" ngModel={{edit_item_detail.name}} required #name="ngModel" placeholder="E.g Play Ug Cranes">
+                        </div>
+                        <h5 class="modal-title" id="exampleModalLongTitle1">Have you Completed this Item?</h5>
+                        <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
                           <input class="form-check-input" type="radio" name="done" id="inlineRadio1" value="true" ngModel #done="ngModel"> Yes
                           <input class="form-check-input" type="radio" name="done" id="inlineRadio2" value="false" ngModel #done="ngModel"> No
                         </label>
+                            </div>
                         </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
