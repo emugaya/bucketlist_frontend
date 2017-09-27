@@ -15,13 +15,12 @@ export class HomeComponent implements OnInit {
   }
   // Redirect to Login page
   goToLogin(): void {
-  	this.router.navigate(['/login']);
-
+    this.router.navigate(['/login']);
   }
 
   // Redirectto Registration page
   goToRegister(): void {
-  	this.router.navigate(['/register']);
+    this.router.navigate(['/register']);
   }
 
 }
