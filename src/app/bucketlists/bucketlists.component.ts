@@ -36,13 +36,13 @@ export class BucketlistsComponent implements OnInit {
   bucket = {'name': 'Bucket Name'};
   edit_bucket_name: any;
   bucket_id_to_edit: any;
-  constructor(private authService: AuthService, 
-              private router: Router, 
+  constructor(private authService: AuthService,
+              private router: Router,
               private bucketlistsService: BucketlistsService) {
   }
 
   ngOnInit() {
-    this.currentuser = localStorage.getItem('currentuser');
+    this.currentuser = this.authService.current_user;
     this.getBucketlists(this.page, this.per_page, this.search);
   }
 
@@ -56,9 +56,6 @@ export class BucketlistsComponent implements OnInit {
       this.total = this.bucket_res.total;
       this.pages = _.range(1, this.bucket_res.pages + 1);
       this.number_of_items = this.bucket_res.items.length;
-      console.log(this.bucket_res);
-      console.log(this.total);
-      console.log(this.number_of_items);
     }, (error) => {
       if (error.status === 401 ) {
         this.authService.checkTimeOut();
@@ -78,8 +75,6 @@ export class BucketlistsComponent implements OnInit {
     this.bucketlistsService.postBucket(this.bucket).subscribe((res: Response) => {
         this.add_bucket_res = res.json();
         this.getBucketlists();
-        //.$("#addBucketModal").modal('hide');
-        console.log(Object.keys(f))
     }, (error) => {
       if (error.status === 401 ) {
         this.authService.checkTimeOut();
@@ -108,7 +103,6 @@ export class BucketlistsComponent implements OnInit {
   }
 
   editBucketName(editform: NgForm): void {
-    console.log("Here");
     const verify: boolean = confirm(`Are you sure you want to edit this bucket?`);
     if (verify === true) {
       this.edit_bucket_name = editform.value.name;

@@ -1,6 +1,6 @@
 import { errorObject } from 'rxjs/util/errorObject';
 import { Component, OnInit } from '@angular/core';
-import { NgForm} from '@angular/forms';
+import { NgForm, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthService} from '../services/auth.service';
 import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
@@ -34,10 +34,12 @@ export class LoginComponent implements OnInit {
       this.authService.isLoggedIn = true;
       this.login_res = res.json();
       this.token = this.login_res.token;
-        this.message = this.login_res.message;
-        localStorage.setItem('currentuser', this.user.username);
-        localStorage.setItem('token', this.token);
-        this.router.navigate(['/bucketlists']);
+      this.authService.token = this.login_res.token;
+      this.authService.current_user = this.user.username;
+      this.message = this.login_res.message;
+      // localStorage.setItem('currentuser', this.user.username);
+      // localStorage.setItem('token', this.token);
+      this.router.navigate(['/bucketlists']);
     }, (error) => {
       if (error.status === 400 ) {
         this.message = 'Invalid username or password';
