@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 @Injectable()
 export class AuthService {
   token: any = '';
+  current_user: string;
 
   constructor(private http: Http, private router: Router) {
 
@@ -30,8 +31,7 @@ export class AuthService {
   postHeaders() {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    const tokenized = localStorage.getItem('token');
-    headers.append('Authorization', 'Basic ' + btoa(tokenized + ':' + 'unused'));
+    headers.append('Authorization', 'Basic ' + btoa(this.token + ':' + 'unused'));
     headers.append('Accept', 'application/json');
     const requestoptions = new RequestOptions({
             headers: headers
@@ -44,7 +44,7 @@ export class AuthService {
   getHeaders() {
     const headers = new Headers;
     headers.append('Accept', 'application/json');
-    headers.append('Authorization', 'Basic ' + btoa(localStorage.getItem('token') + ':' + 'unused'));
+    headers.append('Authorization', 'Basic ' + btoa(this.token + ':' + 'unused'));
     const requestoptions = new RequestOptions({
             headers: headers
         });
@@ -64,6 +64,8 @@ export class AuthService {
 
   // This method handles user Login
   postLogin(user): Observable<any> {
+    const x = this.http.post(SERVER + 'auth/login/', user, this.authHeaders());
+    console.log(x);
     return this.http.post(SERVER + 'auth/login/', user, this.authHeaders());
   }
 

@@ -1,58 +1,9 @@
-.register-header {
-    height: 40px;
-    background-color: whitesmoke;
-    text-align: center;
+.welcome {
+    height: 100vh;
+    /* text-align: center; */
+    background-color: #00796B;
 }
 
-.registration_area {
-    width: 80%;
-    margin: auto;
-}
-
-.register-header p {
-    color: #00796B;
-    font-size: 30px;
-    line-height: 40px;
-    font-size: normal;
-    /* color: black; */
-}
-
-.register-form {
-    margin-top: 20px;
-    height: 300px;
-    padding: 30px;
-    text-align: center;
-    /* background-color: #B2DFDB; */
-}
-
-.register-form label {
-    font-size: 20px;
-    ;
-}
-
-input[type="text"] {
-    border: 0px #cccccc solid;
-    width: 300px;
-    height: 40px;
-}
-
-input[type="password"] {
-    border: 0px #cccccc solid;
-    width: 300px;
-    height: 40px;
-}
-
-button {
-    background-color: #607D8B;
-    align-self: center;
-    height: 45px;
-    font-size: 20px;
-}
-
-.error {
-    color: red;
-}
-
-#login_msg {
-    font-size: 20px;
+.mt-80 {
+    margin-top: 80px;
 }

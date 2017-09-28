@@ -18,7 +18,7 @@ export class ItemsComponent implements OnInit {
   bucketlist_name: any;
   bucketlist_items: any;
   currentuser: any;
-  show_welcome: boolean = true;
+  show_welcome = true;
   delete_item_res: any;
   add_bucketlist_item = { name: 'Item Name', done: false };
   add_bucketlist_item_res: any;
@@ -34,20 +34,13 @@ export class ItemsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.currentuser = localStorage.getItem('currentuser');
+    this.currentuser = this.authService.current_user;
     this.route.params
     .switchMap((params: Params) => this.bucketlistsService.getSingleBucket(+params['id']))
     .subscribe((res: Response) => {
       const returned_data = res.json();
       this.bucketlist_id = returned_data.id;
       this.bucketlist_name = returned_data.name;
-      localStorage.setItem('bucketlist_id', this.bucketlist_id);
-      localStorage.setItem('bucketlist_name', this.bucketlist_name);
-      if (returned_data.items > 0) {
-        this.bucketlist_items = returned_data.items;
-      } else {
-        this.bucketlist_id = 0;
-      }
       this.bucketlist_items = returned_data.items;
     }, (error) => {
       const error_message: any = JSON.parse(error._body);
@@ -59,16 +52,11 @@ export class ItemsComponent implements OnInit {
   }
   // Method to retrieve items in a bucketlist
   getBucketListItems(id) {
-    this.bucketlist_id = id;
+    // this.bucketlist_id = id;
     this.bucketlistsService
       .getSingleBucket(this.bucketlist_id)
       .subscribe((res: Response) => {
         const returned_data = res.json();
-        if (returned_data.items > 0) {
-          this.bucketlist_items = returned_data.items;
-        } else {
-          this.bucketlist_id = 0;
-        }
         this.bucketlist_items = returned_data.items;
       }, (error) => {
         const error_message: any = JSON.parse(error._body);
@@ -82,7 +70,6 @@ export class ItemsComponent implements OnInit {
   // Method to create items in a particular bucketlist
   addBucketListItem(f: NgForm) {
     this.add_bucketlist_item.name = f.value.name;
-    this.bucketlist_id = localStorage.getItem('bucketlist_id');
     this.bucketlistsService
       .postBucketItem(this.bucketlist_id, this.add_bucketlist_item)
       .subscribe((res: Response) => {
@@ -105,7 +92,7 @@ export class ItemsComponent implements OnInit {
   editBucketlistItem(editform: NgForm) {
     const verify: boolean = confirm(`Are you sure you want to edit this item?`);
     if (verify === true) {
-      this.bucketlist_id = localStorage.getItem('bucketlist_id');
+      // this.bucketlist_id = localStorage.getItem('bucketlist_id');
       this.edit_item_detail.name = editform.value.name;
       this.edit_item_detail.done = editform.value.done;
       this.bucketlistsService
@@ -124,7 +111,7 @@ export class ItemsComponent implements OnInit {
   deleteBucketItem(item_id) {
     const verify: boolean = confirm(`Are you sure you want to delete this item?`);
     if (verify === true) {
-      this.bucketlist_id = localStorage.getItem('bucketlist_id');
+      // this.bucketlist_id = localStorage.getItem('bucketlist_id');
       this.bucketlistsService
         .deleteBucketItem(this.bucketlist_id, item_id)
         .subscribe((res: Response) => {
