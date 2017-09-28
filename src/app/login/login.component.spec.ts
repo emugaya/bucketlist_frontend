@@ -36,7 +36,7 @@ describe('LoginComponent', () => {
       providers: [
         BucketlistsService,
         AuthGuard,
-        AuthService,
+        {provide: AuthService, useValue: },
         {provide: APP_BASE_HREF, useValue : '/'}
       ],
     })
@@ -52,4 +52,6 @@ describe('LoginComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should login a user', inject());
 });

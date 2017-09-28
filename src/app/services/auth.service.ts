@@ -64,6 +64,8 @@ export class AuthService {
 
   // This method handles user Login
   postLogin(user): Observable<any> {
+    const x = this.http.post(SERVER + 'auth/login/', user, this.authHeaders());
+    console.log(x);
     return this.http.post(SERVER + 'auth/login/', user, this.authHeaders());
   }
 

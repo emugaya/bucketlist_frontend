@@ -13,14 +13,4 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
   }
-  // Redirect to Login page
-  goToLogin(): void {
-    this.router.navigate(['/login']);
-  }
-
-  // Redirectto Registration page
-  goToRegister(): void {
-    this.router.navigate(['/register']);
-  }
-
 }
