@@ -8,19 +8,19 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    let url: string = state.url;
+    const url: string = state.url;
 
     return this.checkLogin(url);
   }
   checkLogin(url: string): boolean {
-    if (localStorage.getItem('token')) {
+    if (this.authService.token) {
       return true;
     }
 
     // Store the attempted URL for redirecting
     this.authService.redirectUrl = url;
 
-    // Navigate to the home page with 
+    // Navigate to the home page with
     this.router.navigate(['/home']);
     return false;
   }

@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import {APP_BASE_HREF} from '@angular/common';  
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -38,7 +39,8 @@ import { AuthGuard } from './services/auth-guard.service';
   	],
   providers: [AuthService,
               BucketlistsService,
-              AuthGuard],
+              AuthGuard
+            ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
