@@ -1,7 +1,10 @@
 import { BucketlistsComponent } from './bucketlists/bucketlists.component';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { BucketlistsService } from './services/bucketlists.service';
+import { AuthService } from './services/auth.service';
+
 
 @Component({
   selector: 'app-root',
@@ -10,15 +13,15 @@ import { BucketlistsService } from './services/bucketlists.service';
 })
 export class AppComponent {
   title = 'bucketlist';
-  login: boolean;
-  loggedout: boolean;
+  login = true;
+  loggedout = false;
 
   // login = localStorage.getItem('login');
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    if (localStorage.getItem('token')) {
+    if (this.authService.token) {
       this.login = false;
       this.loggedout = true;
     }else {
@@ -26,8 +29,8 @@ export class AppComponent {
       this.loggedout = false;
     }
   }
-  ngDoCheck(){
-    if (localStorage.getItem('token')) {
+  ngDoCheck() {
+    if (this.authService.token) {
       this.login = false;
       this.loggedout = true;
     }else {
@@ -45,8 +48,7 @@ export class AppComponent {
     this.router.navigate(['/register']);
   }
   logOut(): void {
-    localStorage.removeItem('token');
-    console.log(localStorage.getItem('token'));
+    this.authService.token = '';
     this.router.navigate(['/home']);
   }
 }
