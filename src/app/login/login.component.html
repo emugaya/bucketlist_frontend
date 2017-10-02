@@ -1,26 +1,59 @@
-<div class="registration_area">
+<!-- <div style="text-align:center">
+    <div class="welcome">
+        <div class="row min-welcome">
+            <div class="col-md-6 wlcm-message">
+                <div class="card bg-white">
 
-    <div class="register-header">
-        <p>Please Login Here to use this service</p>
+                    <h3 class="card-title">Login Here</h3>
+                    <div class="card-block"></div>
+                    <div *ngIf="message">
+                        <strong>{{message}}. Please try again.</strong>
+                    </div>
+
+                    <form>
+                        <input type="text" class="" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username" required>
+                    </form>
+
+                     <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+                                <p style="text-align: center">
+                                    <label>Username:</label>
+                                    <input type="text" name="username" ngModel required #username="ngModel" placeholder="ex. emugaya">
+                                </p>
+                                <p style="text-align: center">
+                                    <label>Password:</label>
+                                    <input type="password" name="password" ngModel required #password="ngModel" placeholder="password">
+                                </p>
+                                <button class="btn btn-primary">Submit</button>
+                                <p style="text-align: center">Click <a href="/register">Here </a>to Register if you already have an account.</p>
+                            </form>
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6 wlcm-image"> <img width="600" src="./assets/bucketlist_image.jpg"></div>
     </div>
 
-    <div class="register-form">
-        <div class="alert alert-danger" *ngIf="message">
-            <strong>{{message}}. Please try again.</strong>
+</div> -->
+<div class="welcome">
+    <div class="container">
+        <div class="row mt-80">
+            <div class="col-md-5 ">
+                <h2 class="text-white">Login</h2>
+                <div class="card pt-5 pb-5">
+                    <div class="card-block ml-3 mr-3">
+                        <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+                            <input type="text" name="username" ngModel #username="ngModel" class="form-control mb-4" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                            <input type="password" name="password" ngModel #password="ngModel" class="form-control mb-4" id="exampleInputPassword1" placeholder="Password">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <p class="text-white"> Click on the Register button to register if you don't have an account</p>
+            </div>
+            <div class="col-md-6"><img width="100%" src="./assets/bucketlist_image.jpg"></div>
         </div>
-        <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-            <p>
-                <label>Username:</label>
-                <input type="text" name="username" ngModel required #username="ngModel" placeholder="ex. emugaya">
-            </p>
-            <p>
-                <label>Password:</label>
-                <input type="password" name="password" ngModel required #password="ngModel" placeholder="password">
-            </p>
-            <button class="btn btn-primary">Submit</button>
 
-        </form>
-        <p></p>
-        <p id="login_msg">Click <a href="/register">Here </a>to Register if you already have an account.</p>
     </div>
 </div>

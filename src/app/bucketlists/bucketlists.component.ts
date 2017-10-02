@@ -36,6 +36,7 @@ export class BucketlistsComponent implements OnInit {
   bucket = {'name': 'Bucket Name'};
   edit_bucket_name: any;
   bucket_id_to_edit: any;
+  jQuery: any;
   constructor(private authService: AuthService,
               private router: Router,
               private bucketlistsService: BucketlistsService) {
@@ -47,13 +48,16 @@ export class BucketlistsComponent implements OnInit {
   }
 
   getBucketlists(page?, per_page?, search?) {
+    // console.log(this.bucketlistsService.getBuckets());
     this.bucketlistsService.getBuckets(this.page, this.per_page, this.search).subscribe((res: Response) => {
+      // console.log(res);
       this.bucket_res = res.json();
       this.buckets = this.bucket_res.items;
       this.total_pages = this.bucket_res.pages;
       this.total_buckets = this.bucket_res.total;
       this.end_page = this.bucket_res.pages;
       this.total = this.bucket_res.total;
+      // console.log(this.bucket_res);
       this.pages = _.range(1, this.bucket_res.pages + 1);
       this.number_of_items = this.bucket_res.items.length;
     }, (error) => {
@@ -71,6 +75,9 @@ export class BucketlistsComponent implements OnInit {
   }
 
   addBucket(f: NgForm): void {
+    // document.getElementById('#addBucketModal').modal('hide');
+    // jQuery('#addBucketModal').modal('hide');
+    console.log(f);
     this.bucket.name = f.value.name;
     this.bucketlistsService.postBucket(this.bucket).subscribe((res: Response) => {
         this.add_bucket_res = res.json();
