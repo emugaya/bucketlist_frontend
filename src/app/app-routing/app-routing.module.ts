@@ -16,7 +16,7 @@ const routes: Routes = [
 	{ path: 'home', pathMatch: 'full', component: HomeComponent},
 	{ path: 'login',  component: LoginComponent},
 	{ path: 'register',  component: RegisterComponent},
-	{ path: 'bucketlists',  
+	{ path: 'bucketlists',
 	  component: BucketlistsComponent,
 	  canActivate: [AuthGuard]
 	},
