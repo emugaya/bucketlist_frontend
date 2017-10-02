@@ -48,6 +48,7 @@
     "@types/underscore": "^1.8.2",
     "angular-cli-ghpages": "^0.5.1",
     "codelyzer": "~3.2.0",
+    "intern": "^3.4.6",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^1.7.1",
@@ -59,6 +60,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.1.2",
+    "remap-istanbul": "^0.9.5",
     "ts-node": "~3.3.0",
     "tslint": "~5.7.0",
     "typescript": "~2.5.3"
