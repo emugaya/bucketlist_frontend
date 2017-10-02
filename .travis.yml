@@ -1,0 +1,38 @@
+sudo: required
+dist: trusty
+env:
+  global:
+    - CC_TEST_REPORTER_ID=d11acfac39cb7b658dd5862a26c21b69a77b3b0f64360974c6509f4cb38f0b10
+language: node_js
+node_js:
+  - '6.11.2'
+
+addons:
+apt:
+  sources:
+    - google-chrome
+  packages:
+    - google-chrome-stable
+    - google-chrome-beta
+
+before_install:
+  - export CHROME_BIN=chromium-browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+
+before_script:
+- npm install -g @angular/cli
+- npm install -g karma
+- npm install
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- ./cc-test-reporter before-build
+- ng build
+
+
+script:
+  - npm test
+
+after script: 
+- karma start karma.conf.js --single-run
+- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
