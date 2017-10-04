@@ -71,7 +71,7 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('bucketlist');
     expect(component.login).toEqual(true);
-    expect(component.loggedout).toEqual(false);
+    expect(component.loggedout).toEqual(true);
   }));
 
   it('should render title in a h1 tag', async(() => {

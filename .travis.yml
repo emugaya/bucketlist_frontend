@@ -36,7 +36,7 @@ before_script:
 
 
 script:
-  - npm test
+  - ng test -sm=false --code-coverage
 
 after script: 
 - karma start karma.conf.js --single-run
