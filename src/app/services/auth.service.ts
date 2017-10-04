@@ -18,12 +18,13 @@ export class AuthService {
 
   }
   isLoggedIn = false;
-
   // store the URL so we can redirect after logging in
   redirectUrl: string;
 
   logout(): void {
     this.isLoggedIn = false;
+    localStorage.removeItem('token');
+    localStorage.removeItem('currentuser');
   }
 
 
@@ -65,7 +66,6 @@ export class AuthService {
   // This method handles user Login
   postLogin(user): Observable<any> {
     const x = this.http.post(SERVER + 'auth/login/', user, this.authHeaders());
-    console.log(x);
     return this.http.post(SERVER + 'auth/login/', user, this.authHeaders());
   }
 

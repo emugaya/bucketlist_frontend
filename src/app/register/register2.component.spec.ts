@@ -12,7 +12,7 @@ import { AuthGuard } from '../services/auth-guard.service';
 import { AuthService } from '../services/auth.service';
 import { APP_BASE_HREF } from '@angular/common';
 import { ItemsComponent } from '../items/items.component';
-import { AuthServiceStub } from '../testdata/servicemocks/auth.service.mock';
+import { AuthServiceStub2 } from '../testdata/servicemocks/auth.service.stub2';
 import { Router } from '@angular/router';
 
 class RouterStub {
@@ -43,7 +43,7 @@ describe('RegisterComponent', () => {
         BucketlistsService,
         AuthGuard,
         {provide: Router, useClass: RouterStub},
-        {provide: AuthService, useClass: AuthServiceStub},
+        {provide: AuthService, useClass: AuthServiceStub2},
         {provide: APP_BASE_HREF, useValue : '/'}
       ],
     })
@@ -56,10 +56,7 @@ describe('RegisterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
-    expect(component).toBeTruthy();
-  });
-  it('should register user succesfully', inject([AuthService, Router], (authservice: AuthService, router: Router) =>{
+  it('should throw error 400 ', inject([AuthService, Router], (authservice: AuthService, router: Router) =>{
     const regForm = <NgForm>{ value: { username: 'test', password: 'password' } };
     component.onSubmit(regForm);
   }));

@@ -2,7 +2,7 @@ import { HomeComponent } from './home/home.component';
 import { AuthService } from './services/auth.service';
 import { RegisterComponent } from './register/register.component';
 import { TestBed, async, inject, ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+// import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
@@ -18,8 +18,10 @@ import { HttpModule } from '@angular/http';
 import { APP_BASE_HREF } from '@angular/common';
 import { Router } from '@angular/router';
 
-class MockRouter {
-  navigateByUrl(url: string) { return url; }
+class RouterStub {
+  navigate(url: string[]) {
+    return url[0];
+  }
 }
 
 describe('AppComponent', () => {
@@ -45,7 +47,7 @@ describe('AppComponent', () => {
         BucketlistsService,
         AuthGuard,
         AuthService,
-        {provide: Router, useClass: MockRouter },
+        {provide: Router, useClass: RouterStub },
         {provide: APP_BASE_HREF, useValue : '/' }
       ],
     }).compileComponents();
@@ -68,6 +70,8 @@ describe('AppComponent', () => {
     // const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('bucketlist');
+    expect(component.login).toEqual(true);
+    expect(component.loggedout).toEqual(false);
   }));
 
   it('should render title in a h1 tag', async(() => {
@@ -81,5 +85,23 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app.login).toEqual(true);
     expect(app.loggedout).toEqual(false);
+  }));
+  it('should route to login', inject([Router], (router: Router) => {
+    const spy = spyOn(router, 'navigate');
+    component.goToLogin();
+    expect(router.navigate).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['/login']);
+  }));
+  it('should route to register', inject([Router], (router: Router) => {
+    const spy = spyOn(router, 'navigate');
+    component.goToRegister();
+    expect(router.navigate).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['/register']);
+  }));
+  it('should logout and route to login', inject([Router], (router: Router) => {
+    const spy = spyOn(router, 'navigate');
+    component.logOut();
+    expect(router.navigate).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['/home']);
   }));
 });

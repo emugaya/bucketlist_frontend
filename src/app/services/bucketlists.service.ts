@@ -32,7 +32,6 @@ export class BucketlistsService {
 // Method to retrieve single bucket with all items
   getSingleBucket(bucketlist_id) {
     return this.http.get(SERVER + 'bucketlists/' + bucketlist_id, this.authService.getHeaders());
-
   }
 
 // Method to create buckets

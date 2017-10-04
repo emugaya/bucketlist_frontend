@@ -52,7 +52,6 @@ export class ItemsComponent implements OnInit {
   }
   // Method to retrieve items in a bucketlist
   getBucketListItems(id) {
-    // this.bucketlist_id = id;
     this.bucketlistsService
       .getSingleBucket(this.bucketlist_id)
       .subscribe((res: Response) => {
@@ -111,7 +110,7 @@ export class ItemsComponent implements OnInit {
   deleteBucketItem(item_id) {
     const verify: boolean = confirm(`Are you sure you want to delete this item?`);
     if (verify === true) {
-      // this.bucketlist_id = localStorage.getItem('bucketlist_id');
+      this.bucketlist_id = localStorage.getItem('bucketlist_id');
       this.bucketlistsService
         .deleteBucketItem(this.bucketlist_id, item_id)
         .subscribe((res: Response) => {
@@ -124,7 +123,7 @@ export class ItemsComponent implements OnInit {
         });
     }
   }
-  backToBuckets(): void{
+  backToBuckets(): void {
     this.router.navigate(['/bucketlists']);
   }
 }

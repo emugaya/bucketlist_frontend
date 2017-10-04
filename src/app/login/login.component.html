@@ -42,6 +42,9 @@
             <div class="col-md-5 ">
                 <h2 class="text-white">Login</h2>
                 <div class="card pt-5 pb-5">
+                    <div class="alert alert-danger" *ngIf="message">
+                        <strong>{{message}}. Please try again.</strong>
+                    </div>
                     <div class="card-block ml-3 mr-3">
                         <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
                             <input type="text" name="username" ngModel #username="ngModel" class="form-control mb-4" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">

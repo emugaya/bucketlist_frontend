@@ -16,14 +16,15 @@ import { APP_BASE_HREF } from '@angular/common';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { XHRBackend, ResponseOptions, Response } from '@angular/http';
 import { BucketlistServiceStub } from '../testdata/servicemocks/buckelistservice.mock';
-import { AuthServiceStub } from '../testdata/servicemocks/auth.service.mock';
+import { BucketlistServiceStub2 } from '../testdata/servicemocks/buckelist.service.mock2';
+import { AuthServiceStub2 } from '../testdata/servicemocks/auth.service.stub2';
 import { Router } from '@angular/router';
 
-// class RouterStub {
-//   navigate(url: string[]) {
-//     return url[0];
-//   }
-// }
+class RouterStub {
+  navigate(url: string[]) {
+    return url[0];
+  }
+}
 
 describe('ItemsComponent', () => {
   let component: ItemsComponent;
@@ -45,10 +46,11 @@ describe('ItemsComponent', () => {
         ItemsComponent
       ],
       providers: [
+        // { provide: BucketlistsService, useClass: BucketlistServiceStub2},
         { provide: BucketlistsService, useClass: BucketlistServiceStub},
-        // { provide: Router, useClass: RouterStub },
         AuthGuard,
-        AuthService,
+        // {provide: Router, useClass: RouterStub},
+        {provide: AuthService, useClass: AuthServiceStub2},
         {provide: APP_BASE_HREF, useValue : '/' }
       ]
     })
@@ -60,28 +62,23 @@ describe('ItemsComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-it('should be created', inject([BucketlistsService], (bservice: BucketlistsService) =>{
-  expect(component).toBeTruthy();
-}));
-it('should get bucketlist items', inject([BucketlistsService], (bservice: BucketlistsService) => {
+it('should get bucketlist items', inject([BucketlistsService, AuthService],
+    (bservice: BucketlistsService, authService: AuthService) => {
   component.getBucketListItems(2);
 }));
-it('should add item to bucket', inject([BucketlistsService], (bservice: BucketlistsService) => {
-  const addItem = <NgForm> { value: { name: 'test'} };
-  component.addBucketListItem(addItem);
-}));
-it('should set variables for Editing Item', () =>
-  component.setVariablesForEditBucketItem(1, 'name', true)
-);
-it('should edit bucketItem', inject([BucketlistsService], (bservice: BucketlistsService) => {
-  const editForm = <NgForm> { value: { name: 'test', done: 'true'}};
-  spyOn(window, 'confirm').and.returnValue(true);
-  component.editBucketlistItem(editForm);
-}));
-it('should delete item from bucketlist', inject([BucketlistsService], (bservice: BucketlistsService) => {
-  spyOn(window, 'confirm').and.returnValue(true);
-  component.deleteBucketItem(3);
-}));
+// it('should add item to bucket', inject([BucketlistsService], (bservice: BucketlistsService) => {
+//   const addItem = <NgForm> { value: { name: 'test'} };
+//   component.addBucketListItem(addItem);
+// }));
+// it('should edit bucketItem', inject([BucketlistsService], (bservice: BucketlistsService) => {
+//   const editForm = <NgForm> { value: { name: 'test', done: 'true'}};
+//   spyOn(window, 'confirm').and.returnValue(true);
+//   component.editBucketlistItem(editForm);
+// }));
+// it('should delete item from bucketlist', inject([BucketlistsService], (bservice: BucketlistsService) => {
+//   spyOn(window, 'confirm').and.returnValue(true);
+//   component.deleteBucketItem(3);
+// }));
 // it('should allow user to navigate back to backetlists', inject([Router], (router: Router) => {
 //   const spy = spyOn(router, 'navigate');
 //   component.backToBuckets();

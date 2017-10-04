@@ -37,8 +37,8 @@ export class LoginComponent implements OnInit {
       this.authService.token = this.login_res.token;
       this.authService.current_user = this.user.username;
       this.message = this.login_res.message;
-      // localStorage.setItem('currentuser', this.user.username);
-      // localStorage.setItem('token', this.token);
+      localStorage.setItem('currentuser', this.user.username);
+      localStorage.setItem('token', this.token);
       this.router.navigate(['/bucketlists']);
     }, (error) => {
       if (error.status === 400 ) {

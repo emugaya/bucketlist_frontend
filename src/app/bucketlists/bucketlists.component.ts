@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm} from '@angular/forms';
+import { FormGroup, NgForm } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { AuthService} from '../services/auth.service';
 import { Http, Response, URLSearchParams } from '@angular/http';
@@ -17,7 +17,7 @@ export class BucketlistsComponent implements OnInit {
 
   placeholder = 'E.g Travel';
   bucket_res: any;
-  currentuser: string;
+  currentuser = 'emugaya';
   buckets: any;
   total_buckets: 0;
   current_page = 1;
@@ -37,6 +37,7 @@ export class BucketlistsComponent implements OnInit {
   edit_bucket_name: any;
   bucket_id_to_edit: any;
   jQuery: any;
+  bform: FormGroup;
   constructor(private authService: AuthService,
               private router: Router,
               private bucketlistsService: BucketlistsService) {
@@ -48,16 +49,13 @@ export class BucketlistsComponent implements OnInit {
   }
 
   getBucketlists(page?, per_page?, search?) {
-    // console.log(this.bucketlistsService.getBuckets());
     this.bucketlistsService.getBuckets(this.page, this.per_page, this.search).subscribe((res: Response) => {
-      // console.log(res);
       this.bucket_res = res.json();
       this.buckets = this.bucket_res.items;
       this.total_pages = this.bucket_res.pages;
       this.total_buckets = this.bucket_res.total;
       this.end_page = this.bucket_res.pages;
       this.total = this.bucket_res.total;
-      // console.log(this.bucket_res);
       this.pages = _.range(1, this.bucket_res.pages + 1);
       this.number_of_items = this.bucket_res.items.length;
     }, (error) => {
@@ -74,10 +72,10 @@ export class BucketlistsComponent implements OnInit {
     this.getBucketlists(this.page, this.per_page, this.search);
   }
 
-  addBucket(f: NgForm): void {
+  addBucket(f?: NgForm): void {
     // document.getElementById('#addBucketModal').modal('hide');
     // jQuery('#addBucketModal').modal('hide');
-    console.log(f);
+    // console.log(f);
     this.bucket.name = f.value.name;
     this.bucketlistsService.postBucket(this.bucket).subscribe((res: Response) => {
         this.add_bucket_res = res.json();
@@ -94,7 +92,9 @@ export class BucketlistsComponent implements OnInit {
     const verify: boolean = confirm(`Are you sure you want to delete this bucket?`);
     if (verify === true) {
       this.bucketlistsService.deleteBucket(id).subscribe((res: Response) => {
-        this.getBucketlists();
+      this.getBucketlists();
+      const resp = res.json();
+      this.message = resp.message;
    }, (error) => {
     if (error.status === 401 ) {
       this.authService.checkTimeOut();
@@ -105,8 +105,6 @@ export class BucketlistsComponent implements OnInit {
   setBucketNameEditVariables(id, name) {
     this.edit_bucket_name = name;
     this.bucket_id_to_edit = id;
-    console.log( this.bucket_id_to_edit);
-    console.log(this.edit_bucket_name);
   }
 
   editBucketName(editform: NgForm): void {
